@@ -1,5 +1,5 @@
 {
-  "name": "adotapets_nodeapi",
+  "name": "churras-company_nodeapi",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,11 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/manyapps/adotapets_nodeapi.git"
+    "url": "git+ssh://git@github.com:willoliveira/churras-company-nodeapi.git"
   },
   "author": "Willian Gomes de Oliveira",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/manyapps/adotapets_nodeapi#readme",
   "devDependencies": {
     "nodemon": "^1.11.0"
   },
