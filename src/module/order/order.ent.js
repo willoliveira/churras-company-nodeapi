@@ -6,16 +6,21 @@ var OrderSchema = new Schema({
 	_companyId: {
 		type: Schema.Types.ObjectId,
 		ref: "company",
-		Required: "order's email is required"
+		Required: "CompanyId is required"
 	},
 	Items: [{
-		type: Schema.Types.ObjectId,
-		Required: "order's name is required",
-		ref: "order_item",		
-		validate: [
-			val => val.length > 0,
-			"At least one item is required"
-		]
+		length: {
+			type: Number,
+			validate: [
+				val => val > 0,
+				"At least one item is required"
+			]
+		},
+		_itemId: {
+			type: Schema.Types.ObjectId,
+			Required: "ItemId is required",
+			ref: "item"
+		}
 	}]
 }, {
 	collection: "order"
