@@ -13,7 +13,7 @@ class PetsController extends BaseController{
 		this.bind('/company/:id')
 			.get(this.get.bind(this))
 			.put(this.put.bind(this))
-			.delete(this.delete.bind(this));
+			.delete(this.delete.bind(this));		
 	}
 }
 
