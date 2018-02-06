@@ -37,6 +37,11 @@ class CompanyController extends BaseController{
 		});
 	}
 
+	/**
+	 * https://stackoverflow.com/questions/36019713/mongodb-nested-lookup-with-3-levels
+	 * @param {*} req 
+	 * @param {*} res 
+	 */
 	getCompanyOrders(req, res) {
 		this.entity
 			.aggregate([
@@ -46,6 +51,20 @@ class CompanyController extends BaseController{
 						localField: '_id',
 						foreignField: '_companyId',
 						as: "Orders"
+					}
+				},
+				{
+					$unwind: {
+						path: "$Orders",
+						preserveNullAndEmptyArrays: true
+					}
+				},
+				{
+					$lookup: {
+						from: 'item',
+						localField: 'Orders.Items._itemId',
+						foreignField: '_id',
+						as: "Orders.Items"
 					}
 				}
 			]).exec((err, companyOrders) => {
