@@ -2,7 +2,7 @@ var BaseController = require("../common/BaseController");
 var Company = require("./company.ent");
 var Order = require("../order/order.ent");
 
-class PetsController extends BaseController{
+class CompanyController extends BaseController{
 
 	constructor(router) {
 		super(router, Company);
@@ -17,6 +17,7 @@ class PetsController extends BaseController{
 			.delete(this.delete.bind(this));
 
 		this.bind('/company/:id/order')
+			.get(this.getCompanyOrders.bind(this))
 			.post(this.postOrder.bind(this))
 	}
 
@@ -35,6 +36,28 @@ class PetsController extends BaseController{
 			});
 		});
 	}
+
+	getCompanyOrders(req, res) {
+		this.entity
+			.aggregate([
+				{
+					$lookup: {
+						from: 'order',
+						localField: '_id',
+						foreignField: '_companyId',
+						as: "Orders"
+					}
+				}
+			]).exec((err, companyOrders) => {
+				console.log(companyOrders);
+				res.json(companyOrders);
+				
+				// if (err) res.status(500).send(err);
+				// companyOrders.length ? 
+				// 	res.json(companyOrders[0]) :
+				// 	res.json(companyOrders);
+			});
+	}
 }
 
-module.exports = (router) => new PetsController(router);
+module.exports = (router) => new CompanyController(router);

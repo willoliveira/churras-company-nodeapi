@@ -9,7 +9,7 @@ var OrderSchema = new Schema({
 		Required: "CompanyId is required"
 	},
 	Items: [{
-		length: {
+		amount: {
 			type: Number,
 			validate: [
 				val => val > 0,
