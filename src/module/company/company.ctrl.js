@@ -2,6 +2,9 @@ var BaseController = require("../common/BaseController");
 var Company = require("./company.ent");
 var Order = require("../order/order.ent");
 
+var mongoose = require("mongoose");
+mongoose.conve
+
 class CompanyController extends BaseController{
 
 	constructor(router) {
@@ -18,8 +21,11 @@ class CompanyController extends BaseController{
 
 		this.bind('/company/:id/order')
 			.get(this.getCompanyOrders.bind(this))
-			.post(this.postOrder.bind(this))
-	}
+			.post(this.postOrder.bind(this));
+
+		this.bind('/order/companies')
+			.get(this.getCompanyOrders.bind(this));
+		}
 
 	postOrder(req, res) {
 		var newOrder = new Order({
@@ -30,7 +36,6 @@ class CompanyController extends BaseController{
 			if (err) {
 				res.status(500).send(err);
 			}
-			console.log(entity)
 			res.status(200).json({
 				content: entity
 			});
@@ -43,11 +48,8 @@ class CompanyController extends BaseController{
 	 * @param {*} res 
 	 */
 	getCompanyOrders(req, res) {
-		console.log(req.params.id)
 		this.entity
 			.aggregate([
-				// { $match : { '_id': '5a77a00e5ff3481cf4d2d01c' } },
-				// { $group : { '_id' : '_id' } },
 				{
 					$lookup: {
 						from: 'order',
@@ -84,33 +86,48 @@ class CompanyController extends BaseController{
 						"Order": {
 							"_id": "$Orders._id",
 							"Items": "$Items",
-							"amount": "$Orders.Items.amount"
-						},
+							"amount": "$Orders.Items.amount",
+							"_itemId": "$Orders.Items._itemId",
+						}
 					}
 				},
 			]).exec((err, companyOrders) => {
-				// res.status(200).json(companyOrders);
-				
+
 				if (err) res.status(500).send(err);
-
-				if (companyOrders.length) {	
-					companyOrders.forEach((companyOrder) => {
-						let order = companyOrder.Order;
-						order.Items = order.Items.map((item, index) => Object.assign(item, {
-							amount: order.amount[index],
-						}));
-						delete order.amount;
-					});
+				
+				if (companyOrders && companyOrders.length) {
+										
+					let returnCompanyOrders = companyOrders.reduce(function(before, next) {
+						let order;
+						let index = before.map(c => c.Company._id.toString()).indexOf(next.Company._id.toString());
+						if (!before.length || index === -1) { 
 					
-					let returnObj = { 
-						Company: companyOrders[0].Company,
-						Orders: companyOrders.reduce((CompanyOrderBefore, CompanyOrderActual) => {
-							CompanyOrderBefore.push(CompanyOrderActual.Order)
-							return CompanyOrderBefore
-						}, [])
-					}
+							before.push({ 
+								Company: next.Company,
+								Orders: [ ]
+							});
+							index = before.length - 1
+						}
+						
+						if (next.Order.Items.length) {
+							let order = next.Order;
+							order.Items = order.Items.map((item, indexItem) => Object.assign(item, {
+								amount: order.amount[ order._itemId.indexOf(item._id.toString()) ],
+							}));
 
-					res.status(200).json(returnObj);
+							delete order.amount;
+							delete order._itemId;
+					
+							before[index].Orders.push(order);
+						}
+						return before;
+					}, []);
+
+					if (req && req.params && req.params.id) {
+						res.status(200).json(returnCompanyOrders.find(c => c.Company._id.toString() === req.params.id));
+					} else {	
+						res.status(200).json(returnCompanyOrders);
+					}
 				} else {
 					res.status(204).json();
 				}
