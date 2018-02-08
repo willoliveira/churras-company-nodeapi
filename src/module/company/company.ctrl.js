@@ -85,6 +85,7 @@ class CompanyController extends BaseController{
 						},
 						"Order": {
 							"_id": "$Orders._id",
+							"_companyId": "$_id",
 							"Items": "$Items",
 							"amount": "$Orders.Items.amount",
 							"_itemId": "$Orders.Items._itemId",
