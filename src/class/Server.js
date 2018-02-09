@@ -1,5 +1,5 @@
 var express = require('express');
-var CORS = require('cors');
+var cors = require('cors');
 var Config = require('./Config');
 var Module = require('../module');
 var app = express();
@@ -10,13 +10,14 @@ const jwt = require("jsonwebtoken");
 
 module.exports.run = () => {
 	// TODO: Set in config
-	app.use(CORS({
-		'origin': ['*', "http://localhost:8100"],
+	app.use(cors({
+		'origin': ['*', "http://localhost:4200"],
 		'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE'
 	}));
 	
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());
+	
 	
 	app.use((req, res, next) => {
 		if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {

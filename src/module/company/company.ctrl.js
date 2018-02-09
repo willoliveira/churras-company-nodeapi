@@ -123,9 +123,13 @@ class CompanyController extends BaseController {
 					}, []);
 
 					if (req && req.params && req.params.id) {
-						res.status(200).json(returnCompanyOrders.find(c => c.Company._id.toString() === req.params.id));
+						res.status(200).json({
+							content: returnCompanyOrders.find(c => c.Company._id.toString() === req.params.id)
+						});
 					} else {	
-						res.status(200).json(returnCompanyOrders);
+						res.status(200).json({
+							content: returnCompanyOrders
+						});
 					}
 				} else {
 					res.status(204).json();
