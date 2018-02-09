@@ -18,6 +18,10 @@ class Config {
 	static get env () {
 		return process.env.NODE_ENV || 'development';
 	}
+
+	static get secretKey() {
+		return "SECRET-KEY";
+	}
 }
 
 module.exports = Config;

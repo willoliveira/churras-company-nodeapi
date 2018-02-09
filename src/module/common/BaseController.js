@@ -22,7 +22,7 @@ class BaseController {
 			if (err) {
 				res.status(500).send(err);
 			}
-			res.status(200).json({
+			res.status(201).json({
 				content: entity
 			});
 		});

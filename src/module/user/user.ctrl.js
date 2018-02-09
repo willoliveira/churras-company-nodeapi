@@ -8,11 +8,11 @@ class UsersController extends BaseController {
 
 		this.bind('/user')
 			.get(this.get.bind(this))
-			.post(this.post.bind(this));
+			// .post(this.post.bind(this));
 
 		this.bind('/user/:id')
 			.get(this.get.bind(this))
-			.put(this.put.bind(this))
+			// .put(this.put.bind(this))
 			.delete(this.delete.bind(this));
 	}
 }

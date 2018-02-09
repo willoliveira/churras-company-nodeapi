@@ -1,31 +1,30 @@
-var BaseController = require("../common/BaseController");
-var Company = require("./company.ent");
-var Order = require("../order/order.ent");
+const BaseController = require("../common/BaseController");
+const Company = require("./company.ent");
+const Order = require("../order/order.ent");
+const mongoose = require("mongoose");
+const { loginRequired } = require("../../services/auth/auth.service");
 
-var mongoose = require("mongoose");
-mongoose.conve
-
-class CompanyController extends BaseController{
+class CompanyController extends BaseController {
 
 	constructor(router) {
 		super(router, Company);
 
 		this.bind('/company')
 			.get(this.get.bind(this))
-			.post(this.post.bind(this));
+			.post(loginRequired, this.post.bind(this));
 
 		this.bind('/company/:id')
 			.get(this.get.bind(this))
-			.put(this.put.bind(this))
-			.delete(this.delete.bind(this));
+			.put(loginRequired, this.put.bind(this))
+			.delete(loginRequired, this.delete.bind(this));
 
 		this.bind('/company/:id/order')
-			.get(this.getCompanyOrders.bind(this))
-			.post(this.postOrder.bind(this));
+			.get(loginRequired, this.getCompanyOrders.bind(this))
+			.post(loginRequired, this.postOrder.bind(this));
 
 		this.bind('/order/companies')
-			.get(this.getCompanyOrders.bind(this));
-		}
+			.get(loginRequired, this.getCompanyOrders.bind(this));
+	}
 
 	postOrder(req, res) {
 		var newOrder = new Order({
@@ -101,8 +100,7 @@ class CompanyController extends BaseController{
 					let returnCompanyOrders = companyOrders.reduce(function(before, next) {
 						let order;
 						let index = before.map(c => c.Company._id.toString()).indexOf(next.Company._id.toString());
-						if (!before.length || index === -1) { 
-					
+						if (!before.length || index === -1) {
 							before.push({ 
 								Company: next.Company,
 								Orders: [ ]
@@ -113,7 +111,7 @@ class CompanyController extends BaseController{
 						if (next.Order.Items.length) {
 							let order = next.Order;
 							order.Items = order.Items.map((item, indexItem) => Object.assign(item, {
-								amount: order.amount[ order._itemId.indexOf(item._id.toString()) ],
+								amount: order.amount[order._itemId.indexOf(item._id.toString())],
 							}));
 
 							delete order.amount;

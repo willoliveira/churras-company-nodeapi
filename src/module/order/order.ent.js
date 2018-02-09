@@ -8,6 +8,11 @@ var OrderSchema = new Schema({
 		ref: "company",
 		Required: "CompanyId is required"
 	},
+	_userId: {
+		type: Schema.Types.ObjectId,
+		ref: "user",
+		Required: "UserId is required"
+	},
 	Items: [{
 		amount: {
 			type: Number,
