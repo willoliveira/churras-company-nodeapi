@@ -6,14 +6,14 @@ const bcrypt = require("bcrypt");
 const UserSchema = new Schema({
 	email: {
 		type: String,
-		Required: "User's email is required",
+		required: [true, "User's email is required"],
 		unique: true,
 		lowercase: true,
 		trim: true
 	},
 	name: {
 		type: String,
-		Required: "User's name is required"
+		required: [true, "User's name is required"]
 	},
 	hash_password: {
 		type: String,

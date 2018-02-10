@@ -22,7 +22,6 @@ var CompanySchema = new Schema({
 	},
 	createDate: {
 		type: Date,
-		required: true,
 		default: Date.now
 	},
 	CNPJ: {

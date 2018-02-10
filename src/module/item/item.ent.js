@@ -15,12 +15,12 @@ const TYPE_ITEMS = [
 var ItemSchema = new Schema({
 	name: {
 		type: String,
-		Required: "Name item is required"
+		required: [true, "Name item is required"]
 	},
 	type: {
 		type: String,
 		enum: TYPE_ITEMS,
-		Required: "Type is required"
+		required: [true, "Type is required"]
 	}
 }, {
 	collection: "item"

@@ -1,5 +1,6 @@
-var BaseController = require("../common/BaseController");
-var User = require("./user.ent");
+const BaseController = require("../common/BaseController");
+const User = require("./user.ent");
+const bcrypt = require("bcrypt");
 
 class UsersController extends BaseController {
 
@@ -8,12 +9,24 @@ class UsersController extends BaseController {
 
 		this.bind('/user')
 			.get(this.get.bind(this))
+			.put(this.put.bind(this));
 			// .post(this.post.bind(this));
-
+			
 		this.bind('/user/:id')
 			.get(this.get.bind(this))
-			// .put(this.put.bind(this))
 			.delete(this.delete.bind(this));
+	}
+
+	put(req, res) {
+		const body = Object.assign({}, req.user, req.body);
+		body.hash_password = bcrypt.hashSync(req.body.password, 10);
+		
+		this.entity.findOneAndUpdate({ _id: req.user._id }, body, (err, entity) => {
+			if (err) res.status(500).send(err);
+
+			entity.hash_password = undefined;
+			res.status(200).json(entity);
+		});
 	}
 }
 

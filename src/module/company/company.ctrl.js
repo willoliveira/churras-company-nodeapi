@@ -26,11 +26,18 @@ class CompanyController extends BaseController {
 			.get(loginRequired, this.getCompanyOrders.bind(this));
 	}
 
+	post(req, res, next) {
+		req.body._userId = req.user._id;
+		super.post(req, res);
+	}
+
 	postOrder(req, res) {
 		var newOrder = new Order({
 			_companyId: req.params.id,
+			_userId: req.user._id,
 			Items: req.body
 		});
+		
 		newOrder.save((err, entity) => {
 			if (err) {
 				res.status(500).send(err);

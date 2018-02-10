@@ -1,17 +1,21 @@
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var OrderSchema = new Schema({
+const OrderSchema = new Schema({
+	numOrder: {
+		type: Number,
+		default: 0
+	},
 	_companyId: {
 		type: Schema.Types.ObjectId,
 		ref: "company",
-		Required: "CompanyId is required"
+		required: [true, "CompanyId is required"]
 	},
 	_userId: {
 		type: Schema.Types.ObjectId,
 		ref: "user",
-		Required: "UserId is required"
+		required: [true, "UserId is required"]
 	},
 	Items: [{
 		amount: {
@@ -23,7 +27,7 @@ var OrderSchema = new Schema({
 		},
 		_itemId: {
 			type: Schema.Types.ObjectId,
-			Required: "ItemId is required",
+			required: [true, "ItemId is required"],
 			ref: "item"
 		}
 	}]

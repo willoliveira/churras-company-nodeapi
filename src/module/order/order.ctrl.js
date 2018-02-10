@@ -1,10 +1,10 @@
 var BaseController = require("../common/BaseController");
-var User = require("./order.ent");
+var Order = require("./order.ent");
 
 class OrderController extends BaseController {
 
 	constructor(router) {
-		super(router, User);
+		super(router, Order);
 
 		this.bind('/order')
 			.get(this.get.bind(this))
