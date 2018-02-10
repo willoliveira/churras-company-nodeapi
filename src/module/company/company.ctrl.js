@@ -80,6 +80,7 @@ class CompanyController extends BaseController {
 							"_userId": "$_userId",
 							"socialName": "$socialName",
 							"nameFantasy": "$nameFantasy",
+							"CNPJ": "$CNPJ",
 							"about": "$about"
 						},
 						"Order": {
@@ -96,7 +97,7 @@ class CompanyController extends BaseController {
 				if (err) res.status(500).send(err);
 				
 				if (companyOrders && companyOrders.length) {
-										
+
 					let returnCompanyOrders = companyOrders.reduce(function(before, next) {
 						let order;
 						let index = before.map(c => c.Company._id.toString()).indexOf(next.Company._id.toString());
@@ -111,7 +112,7 @@ class CompanyController extends BaseController {
 						if (next.Order.Items.length) {
 							let order = next.Order;
 							order.Items = order.Items.map((item, indexItem) => Object.assign(item, {
-								amount: order.amount[order._itemId.indexOf(item._id.toString())],
+								amount: order.amount[order._itemId.map(itemId => itemId.toString()).indexOf(item._id.toString())],
 							}));
 
 							delete order.amount;

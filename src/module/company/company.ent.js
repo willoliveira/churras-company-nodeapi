@@ -24,6 +24,10 @@ var CompanySchema = new Schema({
 		type: Date,
 		required: true,
 		default: Date.now
+	},
+	CNPJ: {
+		type: String,
+		required: true
 	}
 }, {
 	collection: "company"
