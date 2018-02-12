@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 module.exports.run = () => {
 	// TODO: Set in config
 	app.use(cors({
-		'origin': ['*', "http://localhost:4200"],
+		'origin': ['*',  process.env.SITE_URI || "http://localhost:4200"],
 		'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE'
 	}));
 	
