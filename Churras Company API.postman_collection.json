@@ -1,0 +1,472 @@
+{
+	"info": {
+		"name": "Churras Company API",
+		"_postman_id": "42057241-f165-f72b-c4b9-40024e7c4920",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "Get user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"willian.goliveira@outlook.com\",\n  \"name\": \"Willian Gomes de Oliveira\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						},
+						"description": "Pega todos os usúarios na base"
+					},
+					"response": []
+				},
+				{
+					"name": "Post user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"willian.goliveira@outlook.com\",\n  \"name\": \"Willian Gomes de Oliveira\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/user",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						},
+						"description": "Cadastra um usuário na base"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"description": "",
+			"item": [
+				{
+					"name": "Get a company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/company",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"company"
+							]
+						},
+						"description": "Recupera todas as empresas da base"
+					},
+					"response": []
+				},
+				{
+					"name": "Post a company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_userId\": \"5a7875bf95cfcf044cb9351f\",\n  \"socialName\": \"Empresa top\",\n  \"nameFantasy\": \"Empresa top SA\",\n  \"about\": \"Empresa que vende coisas para churras\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/company",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"company"
+							]
+						},
+						"description": "Cria uma empresa da base"
+					},
+					"response": []
+				},
+				{
+					"name": "Post a order to a company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  \t\t{  \n\t\t\t\"_itemId\": \"5a78b8e3d802fe1f60a55d91\",\n\t\t\t\"amount\": 1\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8cdd802fe1f60a55d8c\",\n\t\t\t\"amount\": 6\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8a2d802fe1f60a55d88\",\n\t\t\t\"amount\": 11\n\t\t}\n\t]\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/company/5a77a00e5ff3481cf4d2d01c/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"company",
+								"5a77a00e5ff3481cf4d2d01c",
+								"order"
+							]
+						},
+						"description": "Cria um pedido para uma empresa"
+					},
+					"response": []
+				},
+				{
+					"name": "Put a company",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_userId\": \"5a7875bf95cfcf044cb9351f\",\n  \"socialName\": \"Empresa top\",\n  \"nameFantasy\": \"Empresa top SA\",\n  \"about\": \"Empresa que vende coisas para churras\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/company/5a77a00e5ff3481cf4d2d01c",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"company",
+								"5a77a00e5ff3481cf4d2d01c"
+							]
+						},
+						"description": "Atualiza uma empresa da base"
+					},
+					"response": []
+				},
+				{
+					"name": "Get orders company",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTdjZTBlZDg4MWRiNjJmNjhmYWE2MzUiLCJlbWFpbCI6IndpbGxpYW4uZ29saXZlaXJhQG91dGxvb2suY29tIiwibmFtZSI6IldpbGxpYW4gR29tZXMgZGUgT2xpdmVpcmEiLCJpYXQiOjE1MTgxMzcyOTJ9.vGt5tHYGJXq7k3tSvIm0q-EKc6weRt-lWu065lQk7yA"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/company/5a77a00e5ff3481cf4d2d01c/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"company",
+								"5a77a00e5ff3481cf4d2d01c",
+								"order"
+							]
+						},
+						"description": "Recupera os pedidos de uma empresa"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"description": "",
+			"item": [
+				{
+					"name": "Get all item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/item",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"item"
+							]
+						},
+						"description": "Recupera todos os itens da base"
+					},
+					"response": []
+				},
+				{
+					"name": "Post a item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Brahma\",\n  \"type\": \"beer\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/item",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"item"
+							]
+						},
+						"description": "Recupera todos os itens da base\n\n{\n  \"name\": \"Brahma\",\n  \"type\": \"beer\"\n}\n\n{\n  \"name\": \"Antarctica Original\",\n  \"type\": \"beer\"\n}\n\n{\n  \"name\": \"Eisenbahn\",\n  \"type\": \"beer\"\n}\n\n{\n  \"name\": \"Carvão Santa Isabel\",\n  \"type\": \"coal\"\n}\n\n{\n  \"name\": \"Pão de alho top\",\n  \"type\": \"garlic_bread\"\n}\n\n{\n  \"name\": \"Coca cola\",\n  \"type\": \"soda\"\n}\n\n{\n  \"name\": \"Pepsi\",\n  \"type\": \"soda\"\n}\n\n{\n  \"name\": \"Guardanapo top\",\n  \"type\": \"napkin\"\n}\n\n{\n  \"name\": \"Alcool para churrasqueira\",\n  \"type\": \"alcohol\"\n}\n\n{\n  \"name\": \"Churrasqueira tambor\",\n  \"type\": \"barbecue_grill\"\n}\n\n{\n  \"name\": \"Churrasqueira de balcão\",\n  \"type\": \"barbecue_grill\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:3000/api/v1/item/5a78a57c5ed4a208ec3a5956",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"item",
+								"5a78a57c5ed4a208ec3a5956"
+							]
+						},
+						"description": "Recupera um item da base"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"description": "",
+			"item": [
+				{
+					"name": "Get all orders by company",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  \t\t{  \n\t\t\t\"_itemId\": \"5a78b8e3d802fe1f60a55d91\",\n\t\t\t\"amount\": 1\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8cdd802fe1f60a55d8c\",\n\t\t\t\"amount\": 6\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8a2d802fe1f60a55d88\",\n\t\t\t\"amount\": 11\n\t\t}\n\t]\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/order/companies",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"companies"
+							]
+						},
+						"description": "Recupera os pedidos agrupados por empresa"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  \t\t{  \n\t\t\t\"_itemId\": \"5a78b8e3d802fe1f60a55d91\",\n\t\t\t\"amount\": 1\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8cdd802fe1f60a55d8c\",\n\t\t\t\"amount\": 6\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8a2d802fe1f60a55d88\",\n\t\t\t\"amount\": 11\n\t\t}\n\t]\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "Recupera todos os pedidos\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Post a order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  \t\t{  \n\t\t\t\"_itemId\": \"5a78b8e3d802fe1f60a55d91\",\n\t\t\t\"amount\": 3\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8cdd802fe1f60a55d8c\",\n\t\t\t\"amount\": 68\n\t\t},\n\t\t{  \n\t\t\t\"_itemId\": \"5a78b8a2d802fe1f60a55d88\",\n\t\t\t\"amount\": 36\n\t\t}\n\t]\n"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						},
+						"description": "Faz um pedido"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"description": "",
+			"item": [
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"willian.goliveira@outlook.com\",\n  \"password\": \"12345678\",\n  \"name\": \"Willian Gomes de Oliveira\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Sign in",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"willian.goliveira@outlook.com\",\n  \"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/auth/signin",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signin"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
