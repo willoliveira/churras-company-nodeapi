@@ -8,7 +8,7 @@ class Config {
 	}
 	
 	static get database () {
-		return 'mongodb://willoliveira:Will1704@ds231758.mlab.com:31758/churras-mdb';
+		return process.env.MONGODB_URI;
 	}
 
 	static get allowOrigin () {
