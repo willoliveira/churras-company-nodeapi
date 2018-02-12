@@ -1,6 +1,7 @@
 const BaseController = require("../common/BaseController");
 const User = require("./user.ent");
 const bcrypt = require("bcrypt");
+const { loginRequired } = require("../../services/auth/auth.service");
 
 class UsersController extends BaseController {
 
