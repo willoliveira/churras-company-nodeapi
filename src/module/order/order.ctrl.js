@@ -1,5 +1,6 @@
 var BaseController = require("../common/BaseController");
 var Order = require("./order.ent");
+const { loginRequired } = require("../../services/auth/auth.service");
 
 class OrderController extends BaseController {
 

@@ -1,8 +1,6 @@
 var BaseController = require("../common/BaseController");
 var User = require("./item.ent");
-
 const { loginRequired } = require("../../services/auth/auth.service");
-
 
 class ItemController extends BaseController {
 
