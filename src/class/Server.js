@@ -33,7 +33,7 @@ module.exports.run = () => {
 			next();
 		}
 	});
-	
+		
 	app.use('/api/v1', router);
 	
 	Module(router);

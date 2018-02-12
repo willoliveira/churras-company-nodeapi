@@ -33,19 +33,23 @@ class AuthController extends BaseController {
 		newUser.save((err, user) => {
 			if (err) res.status(500).send(err);
 
-			let token = jwt.sign(
-				{ _id: user._id, email: user.email, name: user.name }, 
-				Config.secretKey
-			);
-
-			user.hash_password = undefined;
-
-			res.status(201).json({
-				content: {
-					user,
-					token
-				}
-			});
+			if (user) {
+				let token = jwt.sign(
+					{ _id: user._id, email: user.email, name: user.name }, 
+					Config.secretKey
+				);
+				
+				user.hash_password = undefined;
+				
+				res.status(201).json({
+					content: {
+						user,
+						token
+					}
+				});
+			} else {
+				res.status(200).send()
+			}
 		});
 	}
 
