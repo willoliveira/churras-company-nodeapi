@@ -26,7 +26,8 @@ var CompanySchema = new Schema({
 	},
 	CNPJ: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	}
 }, {
 	collection: "company"

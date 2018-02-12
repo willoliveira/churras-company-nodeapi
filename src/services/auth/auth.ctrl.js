@@ -9,12 +9,22 @@ class AuthController extends BaseController {
 	constructor(router) {
 		super(router, User);
 
-		this.bind('/auth/signup')
-			.post(this.signup.bind(this));
+		this.bind('/auth/signup').post(this.signup.bind(this));
+		this.bind('/auth/signin').post(this.signin.bind(this));
+		this.bind('/auth/validate').post(this.validate.bind(this));
+	}
 
-
-		this.bind('/auth/signin')
-			.post(this.signin.bind(this));
+	validate(req, res) {
+		jwt.verify(req.body.token, Config.secretKey, (err, decode) => {
+			if (err) {
+				req.user = undefined;
+			}
+			if (decode) {
+				res.status(200).json({ content: { valid: true } });
+			} else {
+				res.status(200).json({ content: { valid: false } });
+			}
+		});
 	}
 
 	signup(req, res) {
@@ -23,8 +33,19 @@ class AuthController extends BaseController {
 		newUser.save((err, user) => {
 			if (err) res.status(500).send(err);
 
+			let token = jwt.sign(
+				{ _id: user._id, email: user.email, name: user.name }, 
+				Config.secretKey
+			);
+
 			user.hash_password = undefined;
-			res.status(201).json(user);
+
+			res.status(201).json({
+				content: {
+					user,
+					token
+				}
+			});
 		});
 	}
 
@@ -38,13 +59,15 @@ class AuthController extends BaseController {
 					message:  new Error("Password or user wrong.").message 
 				});
 			} else if(user.comparePassword(req.body.password, user.hash_password)) {
+				let token = jwt.sign(
+					{ _id: user._id, email: user.email, name: user.name }, 
+					Config.secretKey
+				);
+				user.hash_password = undefined;
 				res.json({
 					content: {
-						token: jwt.sign({
-							_id: user._id,
-							email: user.email,
-							name: user.name
-						}, Config.secretKey)
+						user,
+						token
 					}
 				});
 			} else {
