@@ -4,11 +4,11 @@
 class Config {
 	
 	static get port () {
-		return 3000;
+		return process.env.PORT || 3000;
 	}
 	
 	static get database () {
-		return process.env.MONGODB_URI;
+		return process.env.MONGODB_URI || 'mongodb://localhost:27017/churras';
 	}
 
 	static get allowOrigin () {
