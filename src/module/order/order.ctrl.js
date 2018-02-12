@@ -7,13 +7,13 @@ class OrderController extends BaseController {
 		super(router, Order);
 
 		this.bind('/order')
-			.get(this.get.bind(this))
-			.post(this.post.bind(this));
+			.get(loginRequired, this.get.bind(this))
+			.post(loginRequired, this.post.bind(this));
 
 		this.bind('/order/:id')
-			.get(this.get.bind(this))
-			.put(this.put.bind(this))
-			.delete(this.delete.bind(this));
+			.get(loginRequired, this.get.bind(this))
+			.put(loginRequired, this.put.bind(this))
+			.delete(loginRequired, this.delete.bind(this));
 	}
 }
 

@@ -8,13 +8,13 @@ class UsersController extends BaseController {
 		super(router, User);
 
 		this.bind('/user')
-			.get(this.get.bind(this))
-			.put(this.put.bind(this));
+			.get(loginRequired, this.get.bind(this))
+			.put(loginRequired, this.put.bind(this));
 			// .post(this.post.bind(this));
 			
 		this.bind('/user/:id')
-			.get(this.get.bind(this))
-			.delete(this.delete.bind(this));
+			.get(loginRequired, this.get.bind(this))
+			.delete(loginRequired, this.delete.bind(this));
 	}
 
 	put(req, res) {

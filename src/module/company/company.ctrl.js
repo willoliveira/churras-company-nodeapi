@@ -10,11 +10,11 @@ class CompanyController extends BaseController {
 		super(router, Company);
 
 		this.bind('/company')
-			.get(this.get.bind(this))
+			.get(loginRequired, this.get.bind(this))
 			.post(loginRequired, this.post.bind(this));
 
 		this.bind('/company/:id')
-			.get(this.get.bind(this))
+			.get(loginRequired, this.get.bind(this))
 			.put(loginRequired, this.put.bind(this))
 			.delete(loginRequired, this.delete.bind(this));
 
