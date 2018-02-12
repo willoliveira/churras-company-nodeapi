@@ -8,7 +8,7 @@ class Config {
 	}
 	
 	static get database () {
-		return 'mongodb://localhost:27017/churras';
+		return 'mongodb://willoliveira:Will1704@ds231758.mlab.com:31758/churras-mdb';
 	}
 
 	static get allowOrigin () {
